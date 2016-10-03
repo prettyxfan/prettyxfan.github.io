@@ -1,4 +1,28 @@
-<!DOCTYPE html><html lang="zh-CN"><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description" content="找到自己从来都是一件带着眼泪的开心事"><title>Objective-C关联对象 | Prettyxfan's Den</title><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/normalize/4.2.0/normalize.min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/0.6.0/pure-min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/0.6.0/grids-responsive-min.css"><link rel="stylesheet" type="text/css" href="/css/style.css?v=0.0.0"><link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css"><script type="text/javascript" src="//cdn.bootcss.com/jquery/3.0.0/jquery.min.js"></script><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"><link rel="alternate" type="application/atom+xml" href="/atom.xml"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">Objective-C关联对象</h1><a id="logo" href="/.">Prettyxfan's Den</a><p class="description"></p></div><div id="nav-menu"><a href="/." class="current"><i class="fa fa-home"> 首页</i></a><a href="/archives/"><i class="fa fa-archive"> 归档</i></a><a href="/atom.xml"><i class="fa fa-rss"> 订阅</i></a></div></div><div id="layout" class="pure-g"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title">Objective-C关联对象</h1><div class="post-meta">Oct 2, 2016<span> | </span><span class="category"><a href="/categories/iOS-学习笔记/">iOS 学习笔记</a></span><script src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js" async></script><span id="busuanzi_container_page_pv"> | <span id="busuanzi_value_page_pv"></span><span> Hits</span></span></div><a data-thread-key="2016/10/02/Objective-C关联对象/" href="/2016/10/02/Objective-C关联对象/#comments" class="ds-thread-count"></a><div class="post-content"><p><em>《Effective Objective-C 2.0》学习笔记及扩展系列</em></p>
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>Prettyxfan&#39;s Den</title>
+  
+  <link href="/atom.xml" rel="self"/>
+  
+  <link href="http://yoursite.com/"/>
+  <updated>2016-10-03T03:52:15.000Z</updated>
+  <id>http://yoursite.com/</id>
+  
+  <author>
+    <name>prettyxfan</name>
+    
+  </author>
+  
+  <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Objective-C关联对象</title>
+    <link href="http://yoursite.com/2016/10/02/Objective-C%E5%85%B3%E8%81%94%E5%AF%B9%E8%B1%A1/"/>
+    <id>http://yoursite.com/2016/10/02/Objective-C关联对象/</id>
+    <published>2016-10-02T13:56:46.000Z</published>
+    <updated>2016-10-03T03:52:15.000Z</updated>
+    
+    <content type="html"><![CDATA[<p><em>《Effective Objective-C 2.0》学习笔记及扩展系列</em></p>
 <h3 id="举个栗子"><a href="#举个栗子" class="headerlink" title="举个栗子"></a>举个栗子</h3><p>有时候需要在对象中存放相关信息，这时我们通常会从对象所属的类中继承一个子类，然后用这个子类对象。然而并非所有的情况下都能这么做，有时候类的实例可能是由某种机制所创建的，而开发者无法令这种机制创建出自己所需要的子类实例，所以在 iOS 开发中经常需要使用分类（category）为已经存在的类添加属性，但使用<code>@property</code>并不能在分类中正确创建实例变量和存取方法。前一篇文章中已经说过，OC 里面用属性的话编译器会自动帮你生成实例变量、生成存取方法。但在分类中添加一个属性：<br><a id="more"></a><br><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">DKObject</span> (<span class="title">Category</span>)</span></div><div class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">strong</span>) <span class="built_in">NSString</span> *categoryProperty;</div><div class="line"><span class="keyword">@end</span></div></pre></td></tr></table></figure></p>
 <p>Build 之后会有警告：<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">Property <span class="string">"categoryProperty"</span> requires method <span class="string">"categoryProperty"</span> to be defined - use <span class="keyword">@dynamic</span> or provide a method implementation <span class="keyword">in</span> <span class="keyword">this</span> category</div><div class="line">Property <span class="string">"categoryProperty"</span> requires method <span class="string">"setCategoryProperty:"</span> to be defined - use <span class="keyword">@dynamic</span> or provide a method implementation <span class="keyword">in</span> <span class="keyword">this</span> category</div></pre></td></tr></table></figure></p>
 <p>从这个警告可以看出，编译器并没有为属性 categoryProperty 自动生成 getter 和 setter 方法，需要自己实现或者使用 @dynamic 在运行时实现这些方法。这个时候就需要借助 Objective-C 的一项强大的特性——“关联对象”（Associated Object）。</p>
@@ -70,13 +94,97 @@
 <p><code>UIAlertView+DeleteConfirmation.h</code><br><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">UIAlertView</span> (<span class="title">DeleteConfirmation</span>)</span></div><div class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>) <span class="built_in">NSIndexPath</span> *indexPathToDelete;</div><div class="line"><span class="keyword">@end</span></div></pre></td></tr></table></figure></p>
 <p><code>UIAlertView+DeleteConfirmation.m</code><br><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#import <span class="meta-string">"UIAlertView+DeleteConfirmation.h"</span></span></div><div class="line"><span class="meta">#import <span class="meta-string">"NSObject+AssociatedObjects.h"</span></span></div><div class="line"></div><div class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">UIAlertView</span> (<span class="title">DeleteConfirmation</span>)</span></div><div class="line"></div><div class="line">- (<span class="keyword">void</span>)setIndexPathToDelete:(<span class="built_in">NSIndexPath</span> *)indexPathToDelete</div><div class="line">&#123;</div><div class="line">    [<span class="keyword">self</span> associateValue:indexPathToDelete withKey:<span class="keyword">@selector</span>(indexPathToDelete)];</div><div class="line">&#125;</div><div class="line"></div><div class="line">- (<span class="built_in">NSIndexPath</span> *)indexPathToDelete</div><div class="line">&#123;</div><div class="line">    <span class="keyword">return</span> [<span class="keyword">self</span> associatedValueForKey:<span class="keyword">@selector</span>(indexPathToDelete)];</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">@end</span></div></pre></td></tr></table></figure></p>
 <p>最终代码变为：<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#import <span class="meta-string">"UIAlertView+DeleteConfirmation.h"</span></span></div><div class="line"></div><div class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">MasterViewController</span> () &lt;<span class="title">UIAlertViewDelegate</span>&gt; </span>&#123;</div><div class="line">    <span class="built_in">NSMutableArray</span> *_objects;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">// ...</span></div><div class="line"></div><div class="line">- (<span class="keyword">void</span>)tableView:(<span class="built_in">UITableView</span> *)tableView commitEditingStyle:(<span class="built_in">UITableViewCellEditingStyle</span>)editingStyle forRowAtIndexPath:(<span class="built_in">NSIndexPath</span> *)indexPath</div><div class="line">&#123;</div><div class="line">    <span class="keyword">if</span> (editingStyle == <span class="built_in">UITableViewCellEditingStyleDelete</span>) &#123;</div><div class="line">        <span class="built_in">NSString</span> *deleteMessage = <span class="string">@"Are you sure you want to delete this super important thing?"</span>;</div><div class="line">        <span class="built_in">UIAlertView</span> *deleteConfirmation = [[<span class="built_in">UIAlertView</span> alloc] initWithTitle:<span class="string">@"Delete Row"</span></div><div class="line">        message:deleteMessage</div><div class="line">        delegate:<span class="keyword">self</span></div><div class="line">        cancelButtonTitle:<span class="string">@"Cancel"</span></div><div class="line">        otherButtonTitles:<span class="string">@"Confirm"</span>, <span class="literal">nil</span>];</div><div class="line">        </div><div class="line">        deleteConfirmation.indexPathToDelete = indexPath;</div><div class="line">        [deleteConfirmation show];</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">// ...</span></div><div class="line"></div><div class="line">- (<span class="keyword">void</span>)alertView:(<span class="built_in">UIAlertView</span> *)alertView didDismissWithButtonIndex:(<span class="built_in">NSInteger</span>)buttonIndex</div><div class="line">&#123;</div><div class="line">    <span class="keyword">if</span> (buttonIndex == <span class="number">1</span>) &#123;</div><div class="line">        <span class="built_in">NSIndexPath</span> *deletePath = alertView.indexPathToDelete;</div><div class="line">        [_objects removeObjectAtIndex:deletePath.row];</div><div class="line">        [_tableView deleteRowsAtIndexPaths:@[deletePath] withRowAnimation:<span class="built_in">UITableViewRowAnimationFade</span>];</div><div class="line">    &#125;</div><div class="line">&#125;   </div></pre></td></tr></table></figure></p>
-</div><script type="text/javascript" src="/js/share.js?v=0.0.0" async></script><a data-url="http://yoursite.com/2016/10/02/Objective-C关联对象/" data-id="cittn6h0h0001h68z32jr5heg" class="article-share-link">分享到</a><div class="tags"><a href="/tags/Objective-C/">Objective-C</a><a href="/tags/关联对象/">关联对象</a></div><div class="post-nav"><a href="/2016/10/02/Objective-C属性/" class="next">Objective-C属性</a></div><div data-thread-key="2016/10/02/Objective-C关联对象/" data-title="Objective-C关联对象" data-url="http://yoursite.com/2016/10/02/Objective-C关联对象/" class="ds-share flat"><div class="ds-share-inline"><ul class="ds-share-icons-16"><li data-toggle="ds-share-icons-more"><a href="javascript:void(0);" class="ds-more">分享到：</a></li><li><a href="javascript:void(0);" data-service="weibo" class="ds-weibo">微博</a></li><li><a href="javascript:void(0);" data-service="qzone" class="ds-qzone">QQ空间</a></li><li><a href="javascript:void(0);" data-service="qqt" class="ds-qqt">腾讯微博</a></li><li><a href="javascript:void(0);" data-service="wechat" class="ds-wechat">微信</a></li></ul><div class="ds-share-icons-more"></div></div></div><div data-thread-key="2016/10/02/Objective-C关联对象/" data-title="Objective-C关联对象" data-url="http://yoursite.com/2016/10/02/Objective-C关联对象/" data-author-key="1" class="ds-thread"></div></div></div></div><div class="pure-u-1-4 hidden_mid_and_down"><div id="sidebar"><div class="widget"><form action="//www.google.com/search" method="get" accept-charset="utf-8" target="_blank" class="search-form"><input type="text" name="q" maxlength="20" placeholder="Search"/><input type="hidden" name="sitesearch" value="http://yoursite.com"/></form></div><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> 分类</i></div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/iOS-学习笔记/">iOS 学习笔记</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> 标签</i></div><div class="tagcloud"><a href="/tags/Objective-C/" style="font-size: 15px;">Objective-C</a> <a href="/tags/属性/" style="font-size: 15px;">属性</a> <a href="/tags/关联对象/" style="font-size: 15px;">关联对象</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> 最新文章</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2016/10/02/Objective-C关联对象/">Objective-C关联对象</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/02/Objective-C属性/">Objective-C属性</a></li></ul></div><div class="widget"><div class="comments-title"><i class="fa fa-comment-o"> 最近评论</i></div><div data-num-items="5" data-show-avatars="0" data-show-time="1" data-show-admin="0" data-excerpt-length="32" data-show-title="1" class="ds-recent-comments"></div></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> 友情链接</i></div><ul></ul><a href="http://tgmerge.me" title="tgmerge" target="_blank">tgmerge</a></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">© <a href="/." rel="nofollow">Prettyxfan's Den.</a> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a><a rel="nofollow" target="_blank" href="https://github.com/tufu9441/maupassant-hexo"> Theme</a> by<a rel="nofollow" target="_blank" href="https://github.com/pagecho"> Cho.</a></div></div></div><a id="rocket" href="#top" class="show"></a><script type="text/javascript" src="/js/totop.js?v=0.0.0" async></script><script type="text/javascript" src="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.pack.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=0.0.0" async></script><link rel="stylesheet" type="text/css" href="/css/jquery.fancybox.css?v=0.0.0"><script>var duoshuoQuery = {short_name:'prettyxfan'};
-(function() {
-    var ds = document.createElement('script');
-    ds.type = 'text/javascript';ds.async = true;
-    ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
-    ds.charset = 'UTF-8';
-    (document.getElementsByTagName('head')[0]
-        || document.getElementsByTagName('body')[0]).appendChild(ds);
-})();
-</script><script type="text/javascript" src="/js/codeblock-resizer.js?v=0.0.0"></script><script type="text/javascript" src="/js/smartresize.js?v=0.0.0"></script></div></body></html>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;em&gt;《Effective Objective-C 2.0》学习笔记及扩展系列&lt;/em&gt;&lt;/p&gt;
+&lt;h3 id=&quot;举个栗子&quot;&gt;&lt;a href=&quot;#举个栗子&quot; class=&quot;headerlink&quot; title=&quot;举个栗子&quot;&gt;&lt;/a&gt;举个栗子&lt;/h3&gt;&lt;p&gt;有时候需要在对象中存放相关信息，这时我们通常会从对象所属的类中继承一个子类，然后用这个子类对象。然而并非所有的情况下都能这么做，有时候类的实例可能是由某种机制所创建的，而开发者无法令这种机制创建出自己所需要的子类实例，所以在 iOS 开发中经常需要使用分类（category）为已经存在的类添加属性，但使用&lt;code&gt;@property&lt;/code&gt;并不能在分类中正确创建实例变量和存取方法。前一篇文章中已经说过，OC 里面用属性的话编译器会自动帮你生成实例变量、生成存取方法。但在分类中添加一个属性：&lt;br&gt;
+    
+    </summary>
+    
+      <category term="iOS 学习笔记" scheme="http://yoursite.com/categories/iOS-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    
+    
+      <category term="Objective-C" scheme="http://yoursite.com/tags/Objective-C/"/>
+    
+      <category term="关联对象" scheme="http://yoursite.com/tags/%E5%85%B3%E8%81%94%E5%AF%B9%E8%B1%A1/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Objective-C属性</title>
+    <link href="http://yoursite.com/2016/10/02/Objective-C%E5%B1%9E%E6%80%A7/"/>
+    <id>http://yoursite.com/2016/10/02/Objective-C属性/</id>
+    <published>2016-10-02T08:38:27.000Z</published>
+    <updated>2016-10-03T03:51:33.000Z</updated>
+    
+    <content type="html"><![CDATA[<p><em>《Effective Objective-C 2.0》学习笔记及扩展系列</em></p>
+<h3 id="理解属性的概念"><a href="#理解属性的概念" class="headerlink" title="理解属性的概念"></a>理解属性的概念</h3><p>“属性”是 OC 的一项特性，用于封装对象中的数据。在 Java、C++ 中都是这样声明实例变量的：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">EOCPerson</span>: <span class="title">NSObject</span> </span>&#123;</div><div class="line"><span class="keyword">@public</span></div><div class="line">	<span class="built_in">NSString</span> *_firstName;</div><div class="line">	<span class="built_in">NSString</span> *_lastName;</div><div class="line"><span class="keyword">@private</span></div><div class="line">	<span class="built_in">NSString</span> *_someInternalData;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>OC 一般不这样干，因为这种写法存在一些问题：对象布局在编译期就已经固定了，只要碰到访问 _firstName 变量的代码，编译器就吧其替换为“偏移量”，这个偏移量是“硬编码”，表示该变量距离存放对象的内存区域的起始地址有多远。但如果又加了一个实例变量，变量间的位置变化了，就需要在修改类定义之后重新编译。<br><a id="more"></a></p>
+<p><strong>OC 把实例变量当作一种存储偏移量所用的“特殊变量”，交由“类对象”保管</strong>。偏移量会在运行期查找，如果类的定义变了，那么存储的偏移量也就变了。这样无论何时访问实例变量，总能使用正确的偏移量。甚至可以在运行期间向类中增加新的实例变量，这就是稳固的“应用程序二进制接口”（ABI）。ABI 定义了许多内容，其中一项就是生成代码时所遵循的规范。有了这种“稳固的”ABI，我们就可以在“class-continuation分类”或实现文件中定义实例变量。<strong>所以说不一定要在借口中把全部的实例变量都声明号，可以将某些变量从接口的 public 区段里移走，以便保护与类实现相关的内部信息。还有就是尽量不要直接访问实例变量，而应该通过存取方法来做。</strong>虽说属性最终还是通过实例变量来实现，但它提供了一种简洁的抽象机制。</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">EOCPerson</span>: <span class="title">NSObject</span></span></div><div class="line"><span class="keyword">@property</span> <span class="built_in">NSString</span> *firstName;</div><div class="line"><span class="keyword">@property</span> <span class="built_in">NSString</span> *lastName;</div><div class="line"><span class="keyword">@end</span></div><div class="line"></div><div class="line"><span class="comment">// 等价于</span></div><div class="line"></div><div class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">EOCPerson</span>: <span class="title">NSObject</span> </span>&#123;</div><div class="line"><span class="keyword">@public</span></div><div class="line">	<span class="built_in">NSString</span> *_firstName;</div><div class="line">	<span class="built_in">NSString</span> *_lastName;</div><div class="line">&#125;</div><div class="line">- (<span class="built_in">NSString</span> *)firstName;</div><div class="line">- (<span class="keyword">void</span>)setFirstName: (<span class="built_in">NSString</span> *)firstName;</div><div class="line">- (<span class="built_in">NSString</span> *)lastName;</div><div class="line">- (<span class="keyword">void</span>)setLastName: (<span class="built_in">NSString</span> *)lastName;	</div><div class="line"><span class="keyword">@end</span></div></pre></td></tr></table></figure>
+<p>使用属性的话，编译器就会自动生成访问这些属性所需的方法，这个过程叫“自动合成”（整个过程在编译期执行，故代码里看不到合成的代码）。而且编译器还会自动向类中添加适当类型的实例变量（名字就是属性名前加下划线）。也可以在类的实现代码里通过 @synthesize 语法来指定实例变量的名字。</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">EOCPerson</span></span></div><div class="line"><span class="keyword">@synthesize</span> firstName = _firstName;</div><div class="line"><span class="keyword">@synthesize</span> lastName = _lastName;</div><div class="line"><span class="keyword">@end</span></div></pre></td></tr></table></figure>
+<p>如果不想由编译器自动合成存取方法，也可以自己写。自己实现存取方法中的一个后，编译器会帮你完成剩下的一个。如果两个都自己实现了的话，就要手动指定实例变量的名字。使用 @dynamic 关键字可以阻止编译器自动合衬存取方法（告诉编译器不要自动创建实现属性所用的实例变量和存取方法），就算编译器在编译时没有发现定义的存取方法也不会报错，它坚信能在运行期间找到。</p>
+<h3 id="属性特质"><a href="#属性特质" class="headerlink" title="属性特质"></a>属性特质</h3><p>看一下下面属性的定义：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">readwrite</span>, <span class="keyword">copy</span>) <span class="built_in">NSString</span> *firstName;</div></pre></td></tr></table></figure>
+<p>属性可以拥有的特质分为四类：</p>
+<ul>
+<li><p>原子性</p>
+<ul>
+<li>atomic：由编译器合成的方法会通过锁定机制确保原子性，一般不写的时候默认就是atomic</li>
+<li>nonatomic：不使用同步锁</li>
+</ul>
+</li>
+<li><p>读写权限</p>
+<ul>
+<li>readwrite：拥有 getter 和 setter</li>
+<li>readonly：只有 getter</li>
+</ul>
+</li>
+<li><p>内存管理语义</p>
+<ul>
+<li>assign：setter 只会针对“存量类型”的简单赋值操作</li>
+<li>strong：表明该属性定义了一种“拥有关系”，为这种属性设置新值时，设置方法会先保留新值，并释放旧值，然后再将新值设置上去</li>
+<li>weak：表明该属性定义了一种“非拥有关系”，为这种属性设置新值时，设置方法既不保留新值，也不释放旧值，此特性和 assgin 类似，然而属性所指的对象遭到摧毁时，属性值也会设置为 nil</li>
+<li>unsage_unretained：此特性的语义和 assign 相同，但只适用于“对象类型”，定义了一种“非拥有关系”，属性所指的对象遭到摧毁时，属性值不会清空，这和weak有区别</li>
+<li><p>copy：此特质所表达的所属关系和 strong 类似。然而设置方法并不保留新值，而是将其“拷贝”。当属性类型为 NSString* 时，经常用此特性来保护其封装性。因为传递给 setter 方法的新值可能指向一个 NSMutableString 类的实例。NSMutableString 是 NSString 的子类，此时如果不拷贝字符串，那么设置完之后，字符串可能会在对象不知情的情况下遭人更改。所以就需要拷贝一份不可变的字符串。</p>
+<p><strong>注意：</strong></p>
+<p>比如把一个属性加上了 copy 特性，那么如果你写了一个init方法，方法里面要对这个属性赋值，那么也要copy一个值而不是直接赋值。<br>eg：</p>
+</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">copy</span>) <span class="built_in">NSString</span> *firstName;</div><div class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">copy</span>) <span class="built_in">NSString</span> *lastName;</div><div class="line"></div><div class="line">- (<span class="keyword">id</span>) initWithFistName: (<span class="built_in">NSString</span> *)firstName lastName:(<span class="built_in">NSString</span> *)lastName &#123;</div><div class="line">	<span class="keyword">if</span> ((<span class="keyword">self</span> = [<span class="keyword">super</span> init])) &#123;</div><div class="line">		_firstName = [firstName <span class="keyword">copy</span>];</div><div class="line">		_lastName = [lastName <span class="keyword">copy</span>];</div><div class="line">	&#125;</div><div class="line">	<span class="keyword">return</span> <span class="keyword">self</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li><p>方法名</p>
+<ul>
+<li><code>getter=&lt;name&gt;</code> ：指定 getter 方法名</li>
+<li><code>setter=&lt;name&gt;</code> ：指定 setter 方法名</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">getter</span> = isOn) Bool on;</div></pre></td></tr></table></figure>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;em&gt;《Effective Objective-C 2.0》学习笔记及扩展系列&lt;/em&gt;&lt;/p&gt;
+&lt;h3 id=&quot;理解属性的概念&quot;&gt;&lt;a href=&quot;#理解属性的概念&quot; class=&quot;headerlink&quot; title=&quot;理解属性的概念&quot;&gt;&lt;/a&gt;理解属性的概念&lt;/h3&gt;&lt;p&gt;“属性”是 OC 的一项特性，用于封装对象中的数据。在 Java、C++ 中都是这样声明实例变量的：&lt;/p&gt;
+&lt;figure class=&quot;highlight objc&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;3&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;4&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;5&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;6&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;7&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;&lt;span class=&quot;class&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;@interface&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;EOCPerson&lt;/span&gt;: &lt;span class=&quot;title&quot;&gt;NSObject&lt;/span&gt; &lt;/span&gt;&amp;#123;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;@public&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;	&lt;span class=&quot;built_in&quot;&gt;NSString&lt;/span&gt; *_firstName;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;	&lt;span class=&quot;built_in&quot;&gt;NSString&lt;/span&gt; *_lastName;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;@private&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;	&lt;span class=&quot;built_in&quot;&gt;NSString&lt;/span&gt; *_someInternalData;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&amp;#125;&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;OC 一般不这样干，因为这种写法存在一些问题：对象布局在编译期就已经固定了，只要碰到访问 _firstName 变量的代码，编译器就吧其替换为“偏移量”，这个偏移量是“硬编码”，表示该变量距离存放对象的内存区域的起始地址有多远。但如果又加了一个实例变量，变量间的位置变化了，就需要在修改类定义之后重新编译。&lt;br&gt;
+    
+    </summary>
+    
+      <category term="iOS 学习笔记" scheme="http://yoursite.com/categories/iOS-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    
+    
+      <category term="Objective-C" scheme="http://yoursite.com/tags/Objective-C/"/>
+    
+      <category term="属性" scheme="http://yoursite.com/tags/%E5%B1%9E%E6%80%A7/"/>
+    
+  </entry>
+  
+</feed>
