@@ -4,9 +4,9 @@
   
   <link href="/atom.xml" rel="self"/>
   
-  <link href="http://yoursite.com/"/>
+  <link href="http://xiefan.me/"/>
   <updated>2016-10-12T12:30:37.000Z</updated>
-  <id>http://yoursite.com/</id>
+  <id>http://xiefan.me/</id>
   
   <author>
     <name>prettyxfan</name>
@@ -17,8 +17,8 @@
   
   <entry>
     <title>Objective-C Runtime Programming Guide文档和笔记</title>
-    <link href="http://yoursite.com/2016/10/04/Objective-C-Runtime-Programming-Guide%E6%96%87%E6%A1%A3%E5%92%8C%E7%AC%94%E8%AE%B0/"/>
-    <id>http://yoursite.com/2016/10/04/Objective-C-Runtime-Programming-Guide文档和笔记/</id>
+    <link href="http://xiefan.me/2016/10/04/Objective-C-Runtime-Programming-Guide%E6%96%87%E6%A1%A3%E5%92%8C%E7%AC%94%E8%AE%B0/"/>
+    <id>http://xiefan.me/2016/10/04/Objective-C-Runtime-Programming-Guide文档和笔记/</id>
     <published>2016-10-04T14:43:07.000Z</published>
     <updated>2016-10-12T12:30:37.000Z</updated>
     
@@ -337,19 +337,19 @@
     
     </summary>
     
-      <category term="iOS 文档翻译" scheme="http://yoursite.com/categories/iOS-%E6%96%87%E6%A1%A3%E7%BF%BB%E8%AF%91/"/>
+      <category term="iOS 文档翻译" scheme="http://xiefan.me/categories/iOS-%E6%96%87%E6%A1%A3%E7%BF%BB%E8%AF%91/"/>
     
     
-      <category term="Objective-C" scheme="http://yoursite.com/tags/Objective-C/"/>
+      <category term="Objective-C" scheme="http://xiefan.me/tags/Objective-C/"/>
     
-      <category term="runtime" scheme="http://yoursite.com/tags/runtime/"/>
+      <category term="runtime" scheme="http://xiefan.me/tags/runtime/"/>
     
   </entry>
   
   <entry>
     <title>Objective-C关联对象</title>
-    <link href="http://yoursite.com/2016/10/02/Objective-C%E5%85%B3%E8%81%94%E5%AF%B9%E8%B1%A1/"/>
-    <id>http://yoursite.com/2016/10/02/Objective-C关联对象/</id>
+    <link href="http://xiefan.me/2016/10/02/Objective-C%E5%85%B3%E8%81%94%E5%AF%B9%E8%B1%A1/"/>
+    <id>http://xiefan.me/2016/10/02/Objective-C关联对象/</id>
     <published>2016-10-02T13:56:46.000Z</published>
     <updated>2016-10-04T12:23:16.000Z</updated>
     
@@ -434,19 +434,19 @@
     
     </summary>
     
-      <category term="iOS 学习笔记" scheme="http://yoursite.com/categories/iOS-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+      <category term="iOS 学习笔记" scheme="http://xiefan.me/categories/iOS-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
     
     
-      <category term="Objective-C" scheme="http://yoursite.com/tags/Objective-C/"/>
+      <category term="Objective-C" scheme="http://xiefan.me/tags/Objective-C/"/>
     
-      <category term="关联对象" scheme="http://yoursite.com/tags/%E5%85%B3%E8%81%94%E5%AF%B9%E8%B1%A1/"/>
+      <category term="关联对象" scheme="http://xiefan.me/tags/%E5%85%B3%E8%81%94%E5%AF%B9%E8%B1%A1/"/>
     
   </entry>
   
   <entry>
     <title>Objective-C属性</title>
-    <link href="http://yoursite.com/2016/10/02/Objective-C%E5%B1%9E%E6%80%A7/"/>
-    <id>http://yoursite.com/2016/10/02/Objective-C属性/</id>
+    <link href="http://xiefan.me/2016/10/02/Objective-C%E5%B1%9E%E6%80%A7/"/>
+    <id>http://xiefan.me/2016/10/02/Objective-C属性/</id>
     <published>2016-10-02T08:38:27.000Z</published>
     <updated>2016-10-03T03:51:33.000Z</updated>
     
@@ -508,12 +508,12 @@
     
     </summary>
     
-      <category term="iOS 学习笔记" scheme="http://yoursite.com/categories/iOS-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+      <category term="iOS 学习笔记" scheme="http://xiefan.me/categories/iOS-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
     
     
-      <category term="Objective-C" scheme="http://yoursite.com/tags/Objective-C/"/>
+      <category term="Objective-C" scheme="http://xiefan.me/tags/Objective-C/"/>
     
-      <category term="属性" scheme="http://yoursite.com/tags/%E5%B1%9E%E6%80%A7/"/>
+      <category term="属性" scheme="http://xiefan.me/tags/%E5%B1%9E%E6%80%A7/"/>
     
   </entry>
   
